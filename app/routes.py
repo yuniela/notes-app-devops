@@ -182,7 +182,7 @@ def create_user():
         db.commit()
         db.refresh(user)
 
-        token = jwt.encode({"user_id": user.id, "exp": ...}, current_app.config['JWT_SECRET_KEY'], algorithm="HS256")
+        token = jwt.encode({"user_id": user.id, "exp": datetime.utcnow() + timedelta(minutes=15)}, current_app.config['JWT_SECRET_KEY'], algorithm="HS256")
         return jsonify({
             "id": user.id,
             "user_name": user.user_name,
